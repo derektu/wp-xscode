@@ -16,11 +16,18 @@ The code is modified from [https://wordpress.org/plugins/syntax-highlighter-mt/]
 
 ## Usage
 
-### Highlighting XS code
+### Highlighting XS code (using shortcode)
+在XS程式碼的前後加上[xscode] ..code.. [/xscode].
+
+### Highlighting XS code (html tag)
 The basic usage is: `<pre class="brush:xs">...code...</pre>`.
 
+
 ### Changing the appearance of code
+請注意：目前shortcode的版本尚未support這些選項。如有需要，請改用html tag的方式。
+
 There are many options that can be applied inline to control how your formatted code is displayed. These are appended to the class definition after the brush declaration.
+
 
 #### `auto-links`
 

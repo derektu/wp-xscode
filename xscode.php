@@ -67,6 +67,19 @@ function xssh_enqueue_scripts()
 
 add_action( 'wp_enqueue_scripts', 'xssh_enqueue_scripts' );
 
+
+function xs_register_shortcodes(){
+    add_shortcode('xscode', 'xscode_shortcode');
+}
+add_action('init', 'xs_register_shortcodes');
+
+function xscode_shortcode($atts, $content = null) {
+    // <pre class="brush:xs"> $content </pre>
+    //
+    $return_string = '<pre class="brush:xs">'.$content.'</pre>';
+    return $return_string;
+}
+
 /*
 add_action('admin_menu', 'mtsh_plugin_settings_page');
 function mtsh_plugin_settings_page()
