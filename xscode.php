@@ -63,7 +63,7 @@ function xssh_enqueue_scripts()
         }
     }
     wp_enqueue_style( 'xs-theme-style', plugins_url("styles/$selectedTheme", __FILE__), array('xs-shcore-style'), $xs_pluginVersion);
-    wp_enqueue_style( 'xs-hack-style', plugins_url("styles/xs-style.css", __FILE__), array('xs-theme-style'), $xs_pluginVersion);
+    // wp_enqueue_style( 'xs-style', plugins_url("styles/xs-style.css", __FILE__), array('xs-theme-style'), $xs_pluginVersion);
 }
 
 add_action( 'wp_enqueue_scripts', 'xssh_enqueue_scripts' );
