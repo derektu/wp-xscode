@@ -71,6 +71,7 @@ add_action( 'wp_enqueue_scripts', 'xssh_enqueue_scripts' );
 
 function xs_register_shortcodes(){
     add_shortcode('xscode', 'xscode_shortcode');
+    add_shortcode('xqlite', 'xqlite_shortcode');
 }
 add_action('init', 'xs_register_shortcodes');
 
@@ -83,6 +84,14 @@ function xscode_shortcode($atts, $content = null) {
     $content = strip_tags($content);
 
     $return_string = '<pre class="brush:xs">'.$content.'</pre>';
+    return $return_string;
+}
+
+function xqlite_shortcode($atts, $content = null) {
+    $return_string =
+'<a href="http://new.xq.com.tw/campaigns/xqlite/index.html">' .
+'<img style="display:block" height="40" src="http://goo.gl/htr68v" width="600">' .
+'</a>';
     return $return_string;
 }
 
