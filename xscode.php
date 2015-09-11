@@ -68,13 +68,15 @@ function xssh_enqueue_scripts()
 
 add_action( 'wp_enqueue_scripts', 'xssh_enqueue_scripts' );
 
-
 function xs_register_shortcodes(){
     add_shortcode('xscode', 'xscode_shortcode');
     add_shortcode('xqlite', 'xqlite_shortcode');
 }
 add_action('init', 'xs_register_shortcodes');
 
+// Disable wptexturize: so that double quote char remains double quote char !!
+//
+remove_filter('the_content', 'wptexturize');
 
 function xscode_shortcode($atts, $content = null) {
     // <pre class="brush:xs"> $content </pre>
