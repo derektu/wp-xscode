@@ -1,3 +1,22 @@
+/*
 .syntaxhighlighter .toolbar {
     visibility: hidden;
 }
+*/
+.syntaxhighlighter .toolbar {
+  width: 70px !important;
+  height: 15px !important;
+  font-size: 12px !important;
+  color: #CCCCCC !important;
+  background: #219B37 !important;
+  padding-top: 2px !important;
+}
+
+.syntaxhighlighter .toolbar a:hover{
+  color: #F0CB42 !important;
+}
+
+.syntaxhighlighter div {
+  line-height: 1.5em !important;
+}
+
