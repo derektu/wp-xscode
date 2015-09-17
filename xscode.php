@@ -48,13 +48,18 @@ function xssh_enqueue_scripts()
     $options = get_option('mtsh_plugin_options');
     global $themes;
     global $xs_pluginVersion;
-    wp_enqueue_script( 'jq', 'https://code.jquery.com/jquery-1.11.3.js', array(), $xs_pluginVersion);
-    wp_enqueue_script( 'xs', plugins_url('src/xsHighlights.js', __FILE__), array('jq'), $xs_pluginVersion);
+    wp_enqueue_script( 'xs', plugins_url('xsHighlights.js', __FILE__), array('jq'), $xs_pluginVersion);
+    /*
     wp_enqueue_script( 'xs-xregexp', plugins_url('src/xregexp.js', __FILE__), array('xs'), $xs_pluginVersion);
     wp_enqueue_script( 'xs-shcore', plugins_url('src/shCore.js', __FILE__), array('xs-xregexp'), $xs_pluginVersion);
     wp_enqueue_script( 'xs-shautoloader', plugins_url('src/shAutoloader.js', __FILE__), array('xs-shcore'), $xs_pluginVersion);
+    */
 
-    wp_enqueue_script( 'xs-brushtypes', plugins_url('brushTypes.js', __FILE__), array(), $xs_pluginVersion, true);
+    wp_enqueue_script( 'xs-shcore', plugins_url('scripts/shCore.js', __FILE__), array('xs'), $xs_pluginVersion);
+    wp_enqueue_script( 'xs-shautoloader', plugins_url('scripts/shAutoloader.js', __FILE__), array('xs-shcore'), $xs_pluginVersion);
+
+    wp_enqueue_script( 'jq', 'https://code.jquery.com/jquery-1.11.3.js', array(), $xs_pluginVersion);
+    wp_enqueue_script( 'xs-brushtypes', plugins_url('brushTypes.js', __FILE__), array('jq'), $xs_pluginVersion, true);
     wp_localize_script( 'xs-brushtypes', 'MTBrushParams', array('baseUrl' => plugins_url('', __FILE__)) );
 
     wp_enqueue_style( 'xs-shcore-style', plugins_url('styles/shCore.css', __FILE__), array(), $xs_pluginVersion);
