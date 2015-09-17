@@ -81,9 +81,21 @@ function xs_register_shortcodes(){
 }
 add_action('init', 'xs_register_shortcodes');
 
-// Disable wptexturize: so that double quote char remains double quote char !!
+// Disable wptexturize (only within shortcode): so that double quote char remains double quote char !!
 //
-remove_filter('the_content', 'wptexturize');
+//remove_filter('the_content', 'wptexturize');
+add_filter('no_texturize_shortcodes', 'shortcodes_to_exempt_from_wptexturize' );
+function shortcodes_to_exempt_from_wptexturize( $shortcodes ) {
+    $shortcodes[] = 'xscode';
+    return $shortcodes;
+}
+
+// TODO
+// TinyMce在切換html/code模式時會自動移除whitespace, 所以[xscode]裡面程式的format都會跑掉
+// 解決方式
+// - 1. 找到可以客製化tinymce的作法
+// - 2. 改用<pre>的方式來寫, 然後寫一個外掛, inject相關的scripts, 同時把<pre>的class改掉
+//
 
 function xscode_shortcode($atts, $content = null) {
     // <pre class="brush:xs"> $content </pre>
