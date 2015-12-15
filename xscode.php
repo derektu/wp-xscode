@@ -81,21 +81,42 @@ function xs_register_shortcodes(){
 }
 add_action('init', 'xs_register_shortcodes');
 
+
+/* Add output_log function for debugging */
+if (!function_exists('output_log')) {
+    function output_log($log)
+    {
+        if (true === WP_DEBUG) {
+            if (is_array($log) || is_object($log)) {
+                error_log(print_r($log, true));
+            } else {
+                error_log($log);
+            }
+        }
+    }
+}
+
+// 編輯流程:
+//  用<pre>把程式碼包起來
+//  save時更改內容, 把<pre>的class貼上去
+//
+function xs_beautify($content) {
+    // output_log('xxxxxx' . $content . 'xxxxxx');
+    $content = str_replace( "<pre>", "<pre class='brush:xs'>", $content );
+    return $content;
+}
+
+//add_filter('the_content', 'xs_beautify', 10);
+add_filter( 'content_save_pre', 'xs_beautify', 10, 1 );
+
 // Disable wptexturize (only within shortcode): so that double quote char remains double quote char !!
 //
-//remove_filter('the_content', 'wptexturize');
 add_filter('no_texturize_shortcodes', 'shortcodes_to_exempt_from_wptexturize' );
 function shortcodes_to_exempt_from_wptexturize( $shortcodes ) {
     $shortcodes[] = 'xscode';
     return $shortcodes;
 }
 
-// TODO
-// TinyMce在切換html/code模式時會自動移除whitespace, 所以[xscode]裡面程式的format都會跑掉
-// 解決方式
-// - 1. 找到可以客製化tinymce的作法
-// - 2. 改用<pre>的方式來寫, 然後寫一個外掛, inject相關的scripts, 同時把<pre>的class改掉
-//
 
 function xscode_shortcode($atts, $content = null) {
     // <pre class="brush:xs"> $content </pre>
@@ -116,54 +137,3 @@ function xqlite_shortcode($atts, $content = null) {
     return $return_string;
 }
 
-/*
-add_action('admin_menu', 'mtsh_plugin_settings_page');
-function mtsh_plugin_settings_page()
-{
-    add_options_page('Syntax Highlighter MT', 'Syntax Highlighter MT', 'manage_options', 'mtsh_plugin', 'mtsh_plugin_options_page');
-}
-
-function mtsh_plugin_options_page()
-{
-    ?>
-<div>
-    <h2>SyntaxHighlighter MT Options</h2>
-    <form action="options.php" method="post">
-        <?php settings_fields('mtsh_plugin_options'); ?>
-        <?php do_settings_sections(__FILE__); ?>
-        <br/>
-        <input name="Submit" type="submit" value="<?php esc_attr_e('Save Changes'); ?>"/>
-    </form>
-    <br/>
-    <hr/>
-    For more information about this plugin, please see <a href="http://megatome.com/syntaxhighlighter">http://megatome.com/syntaxhighlighter</a><br/>
-    For more information about the code this plugin is built upon, go to <a href="http://alexgorbatchev.com/wiki/SyntaxHighlighter">http://alexgorbatchev.com/wiki/SyntaxHighlighter</a>
-</div>
-<?php
-
-}
-
-add_action('admin_init', 'plugin_admin_init');
-function plugin_admin_init()
-{
-    register_setting('mtsh_plugin_options', 'mtsh_plugin_options');
-    add_settings_section('plugin_main', 'Highlighting Theme', 'mtsh_settings_theme', __FILE__);
-    add_settings_field('theme', 'Theme', 'mtsh_settings_theme_dropdown', __FILE__, 'plugin_main');
-}
-
-function mtsh_settings_theme() {
-    echo "<strong>Select the desired coloring theme for highlighting code. This will affect all highlighted code.</strong>";
-}
-
-function  mtsh_settings_theme_dropdown() {
-	$options = get_option('mtsh_plugin_options');
-	global $themes;
-	echo "<select id='drop_down1' name='mtsh_plugin_options[theme]'>";
-	foreach($themes as $k => $v) {
-		$selected = ($options['theme']== $k) ? 'selected="selected"' : '';
-		echo "<option value='$k' $selected>$k</option>";
-	}
-	echo "</select>";
-}
-?>
-*/
