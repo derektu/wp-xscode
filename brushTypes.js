@@ -24,6 +24,18 @@ function selectElementText(el, win) {
     }
 }
 
+function clearSelection() {
+    if (window.getSelection) {
+        if (window.getSelection().empty) {  // Chrome
+            window.getSelection().empty();
+        } else if (window.getSelection().removeAllRanges) {  // Firefox
+            window.getSelection().removeAllRanges();
+        }
+    } else if (document.selection) {  // IE?
+        document.selection.empty();
+    }
+}
+
 SyntaxHighlighter.config["strings"]["copy"] = "複製程式碼";
 SyntaxHighlighter.toolbar["items"]["list"] = ['copy'];
 SyntaxHighlighter.toolbar["items"]["copy"] = {
@@ -32,6 +44,22 @@ SyntaxHighlighter.toolbar["items"]["copy"] = {
         var container = div.find(".container");
         if (container) {
             selectElementText(container[0]);
+            var success = false;
+            try {
+                // copy text
+                success = document.execCommand('copy');
+            }
+            catch (err) {
+                success = false;
+            }
+
+            if (success) {
+                clearSelection();
+                alert('程式碼已經成功複製到剪貼簿。');
+            }
+            else {
+                alert('請按Ctrl+C來複製程式碼。');
+            }
         }
     }
 };
