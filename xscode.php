@@ -131,7 +131,7 @@ function xscode_shortcode($atts, $content = null) {
 
 function xqlite_shortcode($atts, $content = null) {
     $return_string =
-'<a href="http://new.xq.com.tw/campaigns/xqlite/index.html">' .
+'<a href="http://www.xq.com.tw/Buy.aspx">' .
 '<img style="display:block" height="40" src="http://goo.gl/vOGG3K" width="600">' .
 '</a>';
     return $return_string;
