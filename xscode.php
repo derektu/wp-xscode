@@ -132,7 +132,7 @@ function xscode_shortcode($atts, $content = null) {
 function xqlite_shortcode($atts, $content = null) {
     $return_string =
 '<a href="http://www.xq.com.tw/?utm_campaign=xstrader&utm_medium=banner&utm_source=xstrader.net00">' .
-'<img style="display:block" height="120" src="http://goo.gl/u8BPAh" width="980">' .
+'<img style="display:block" src="http://goo.gl/u8BPAh" width="980">' .
 '</a>';
     return $return_string;
 }
