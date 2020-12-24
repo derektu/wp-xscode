@@ -115,8 +115,7 @@
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,		css: 'string' },			// strings
 			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,		css: 'string' },			// strings
 
-			{ regex: /\b[0-9_]+\b/g,									css: 'constants' },		// constants
-			{ regex: /(value\d{0,3}|condition\d{0,3})/ig, css: 'keyword' }			// contextual keyword: 'partial'
+			{ regex: /\b[0-9_]+\b/g,									css: 'constants' }		// constants
 		];
 
 		if (xs.highlights.keywords)
